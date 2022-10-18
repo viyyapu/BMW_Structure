@@ -1,0 +1,178 @@
+type Project{
+    projectId: Int,
+    title: String,
+    description: String,
+    owner: String,
+    date: String,
+    endDate: String,
+    timeline: String,
+    noOfFte: Int,
+    fteAllocation: String,
+    status: String
+}
+input InputProject{
+    projectId: Int,
+    title: String,
+    description: String,
+    owner: String,
+    date: String,
+    endDate: String,
+    timeline: String,
+    noOfFte: Int,
+    fteAllocation: String,
+    status: String
+}
+type projectData {
+status: Status,
+data: Project
+}
+type Mutation {
+   addProject(input: InputProject): projectData
+}
+
+type Mutation {
+  updateProject(id: String, input: InputProject!): projectData
+}
+
+type Mutation {
+  deleteProject(id: String): deleteProjectsData
+}
+
+type  deleteProjectsData{
+ status: Status
+}
+
+
+
+
+
+
+
+
+
+
+type Resource{
+    empId: Int,
+    firstName: String,
+    lastName: String,
+    department: String,
+    organization: String,
+    availability: Int,
+    groupTeam: String,
+    allocation: Int,
+    startDate: String,
+    endDate: String,
+    role: String
+}
+input InputResource{
+    empId: Int,
+    firstName: String,
+    lastName: String,
+    department: String,
+    organization: String,
+    availability: Int,
+    groupTeam: String,
+    allocation: Int,
+    startDate: String,
+    endDate: String,
+    role: String
+}
+type resourceData {
+status: Status,
+data: Resource
+}
+type Mutation {
+   addResource(input: InputResource): resourceData
+}
+
+type Mutation {
+  updateResource(id: String, input: InputResource!): resourceData
+}
+
+type Mutation {
+  deleteResource(id: String): deleteResourcesData
+}
+
+type  deleteResourcesData{
+ status: Status
+}
+
+
+
+
+
+
+
+
+
+type User {
+  email: String
+  name: String
+  provider: String
+  photoUrl: String
+  contactType:String
+  phone:String
+}
+input InputUser {
+  email: String
+  name: String
+  provider: String
+  photoUrl: String
+  contactType:String
+  phone:String
+}
+type Mutation {
+  addUser(input: InputUser!): userData
+}
+type userData {
+  status: Status,
+  data:User
+}
+
+type Mutation {
+  updateUser(id: String, input: InputUser!): userData
+}
+
+type Mutation {
+  deleteUser(id: String): deleteUsersData
+}
+
+type  deleteUsersData{
+ status:Status
+}
+
+type Query {
+  getUsers(contactType:String): getUsersData
+}
+
+type getUsersData {
+status:Status
+data:[User]
+}
+
+
+
+
+
+
+type Status {
+  code :Int ,
+  header: String,
+  description : String,
+  moreInfo :String
+}
+
+type Query {
+  findByUserId(id: String!): findByUserIdData
+}
+
+
+
+type findByUserIdData{
+  status:Status
+  data:User
+}
+
+type Query {
+  token(email: String!): String!
+}

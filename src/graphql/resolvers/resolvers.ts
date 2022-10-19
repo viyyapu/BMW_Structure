@@ -12,18 +12,19 @@ const resolvers: IResolvers = {
     token: (_, args: any) => {
       return jwt.sign({ data: args[AppConstants.EMAIL] }, <string>process.env.auth_encryption_salt);
     },
-    getUsers: (_: void, args: any, ctx: Context, _info: GraphQLResolveInfo) => {
-      console.log(args)
-      return usersController.getUsers(args, ctx);
+    getUsers: () => {
+      return usersController.getUsers();
     },
-    // getProjects: () => {
-    //   console.log()
-    //   return usersController.getProjects();
-    // },
-    // getResources: (_: void, args: any, ctx: Context, _info: GraphQLResolveInfo) => {
-    //   console.log(args)
-    //   return usersController.getResources(args, ctx);
-    // },
+    getProjects: () => {
+      return usersController.getProjectsList();
+    },
+    getResources: () => {
+      return usersController.getResources();
+    },
+    getMetaData: () => {
+      console.log("Hello")
+      return usersController.getMetaData();
+    },
     findByUserId: (_: void, args: any, ctx: Context, _info: GraphQLResolveInfo) => {
       return usersController.findByUserId(args, ctx);
     }
@@ -56,6 +57,9 @@ const resolvers: IResolvers = {
     deleteUser: (_, inputObject, ctx: Context) => {
       return usersController.deleteUser(inputObject, ctx);
     }, 
+    addMetaData:(_, inputObject, ctx: Context)=>{
+      return usersController.addMetaData(inputObject, ctx);
+    },
   }
 };
 

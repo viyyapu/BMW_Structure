@@ -1,5 +1,5 @@
 type Project{
-    projectId: Int,
+    projectId: String,
     title: String,
     description: String,
     owner: String,
@@ -8,10 +8,15 @@ type Project{
     timeline: String,
     noOfFte: Int,
     fteAllocation: String,
-    status: String
+    status: String,
+    fundingDepartment: String,
+    fteRequired: Int,
+    estimatedBudget: Float,
+    actualBudget: Float
 }
+
 input InputProject{
-    projectId: Int,
+    projectId: String,
     title: String,
     description: String,
     owner: String,
@@ -21,11 +26,21 @@ input InputProject{
     noOfFte: Int,
     fteAllocation: String,
     status: String
+    budget: budgetInformation
 }
+
+input budgetInformation {
+    fundingDepartment: String,
+    fteRequired: Int,
+    estimatedBudget: Float,
+    actualBudget: Float
+}
+
 type projectData {
 status: Status,
 data: Project
 }
+
 type Mutation {
    addProject(input: InputProject): projectData
 }
@@ -42,8 +57,14 @@ type  deleteProjectsData{
  status: Status
 }
 
+type Query {
+  getProjects: getProjectsData
+}
 
-
+type getProjectsData {
+status:Status
+data:[Project]
+}
 
 
 
@@ -97,7 +118,14 @@ type  deleteResourcesData{
  status: Status
 }
 
+type Query {
+  getResources: getResourcesData
+}
 
+type getResourcesData {
+status:Status
+data:[Resource]
+}
 
 
 
@@ -150,11 +178,6 @@ status:Status
 data:[User]
 }
 
-
-
-
-
-
 type Status {
   code :Int ,
   header: String,
@@ -162,11 +185,75 @@ type Status {
   moreInfo :String
 }
 
+
+
+
+
+
+
+
+input InputMetaData{
+    outputArtifact: String,
+    accountingDetails: String,
+    swProcessStep: String,
+    spGeneration: String,
+    ecu: String,
+    productDomainGroup: String,
+    productDomain: String,
+    product: String,
+    areaProduct: String
+}
+
+type Mutation {
+  addMetaData(input: InputMetaData!): metaData
+}
+
+type metaData {
+  status: Status,
+  data:metaDataList
+}
+
 type Query {
-  findByUserId(id: String!): findByUserIdData
+  getMetaData: metaDataList
+}
+
+type metaDataList {
+status:Status
+data:metaDataArray
+}
+
+type metaDataArray{
+  outputArtifact: [String],
+  accountingDetails: [String],
+  swProcessStep: [String],
+  spGeneration: [String],
+  ecu: [String],
+  productDomainGroup: [String],
+  productDomain: [String],
+  product: [String],
+  areaProduct: [String]
+    
+}
+
+type metaDataList{
+    outputArtifact: String,
+    accountingDetails: String,
+    swProcessStep: String,
+    spGeneration: String,
+    ecu: String,
+    productDomainGroup: String,
+    productDomain: String,
+    product: String,
+    areaProduct: String    
 }
 
 
+
+
+
+type Query {
+  findByUserId(id: String!): findByUserIdData
+}
 
 type findByUserIdData{
   status:Status

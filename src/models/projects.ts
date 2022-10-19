@@ -1,8 +1,15 @@
 import * as mongoose from 'mongoose';
 
+const budgetInformationSchema = new mongoose.Schema({
+    fundingDepartment: String,
+    fteRequired: Number,
+    estimatedBudget: Number,
+    actualBudget: Number
+})
+
 const projectListSchema = new mongoose.Schema(
   {
-    projectId: Number,
+    projectId: String,
     title: String,
     description: String,
     owner: String,
@@ -11,7 +18,8 @@ const projectListSchema = new mongoose.Schema(
     timeline: String,
     noOfFte: Number,
     fteAllocation: String,
-    status: String
+    status: String,
+    budgetInformation : budgetInformationSchema
   },
 );
 
